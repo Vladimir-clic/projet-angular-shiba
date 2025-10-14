@@ -1,9 +1,9 @@
-.sdv-movie-card {
+.sdv-article-card {
   position: relative;
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  color: #bd2525;
+  color: #fff;
 
   .sdv-dark-overlay {
     position: absolute;
@@ -13,12 +13,15 @@
     pointer-events: none;
   }
 
-  .sdv-movie-card-layer-2 {
+  .sdv-article-card-layer-2 {
     position: relative;
     z-index: 2;
   }
-}
 
-.noir{
-  color : black
+  .sdv-movie-rating {
+    color: #eccd2c;
+  }
+}
+.uk-button{
+  background-color: #df9548;
 }
