@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, RouterModule} from '@angular/router';
+import {ArticleService} from '../../services/articles-service';
+import {HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-article-detail',
-  imports: [],
+  imports: [HttpClientModule],
   templateUrl: './article-detail.html',
   styleUrl: './article-detail.scss'
 })

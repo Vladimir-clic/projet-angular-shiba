@@ -1,28 +1,18 @@
 import { Component } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {NgClass, NgStyle} from '@angular/common';
+import {NgIf, NgStyle} from '@angular/common';
 import {ArticleService} from '../../services/articles-service';
 import {RouterLink} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-article-page',
-  imports: [HttpClientModule, NgStyle, RouterLink
+  imports: [HttpClientModule, NgStyle, RouterLink, FormsModule, NgIf
   ],
   templateUrl: './article-page.html',
   styleUrl: './article-page.scss'
 })
 export class ArticlePage {
-
-  public selectedArticle: any = null;
-
-  showDetails(article: any) {
-    this.selectedArticle = this.selectedArticle === article ? null : article;
-  }
-
-  trackByFn(index: number, item: any): any {
-    return item.id || index;
-  }
-
 
   public articles: any[] = [];
 
@@ -58,6 +48,37 @@ export class ArticlePage {
       }
     })
   }
+
+
+
+  articleEnModificationId: number | null = null;
+  formModif = { title: '', desc: '', imgPath: '' };
+
+  ouvrirFormulaireModification(article: any) {
+    this.articleEnModificationId = article.id;
+    this.formModif = {
+      title: article.title,
+      desc: article.desc,
+      imgPath: article.imgPath
+    };
+  }
+
+  validerModification(article: any) {
+    this.articleService.modifierArticle(article.id, this.formModif).subscribe({
+      next: () => {
+        // Met à jour localement les données de l’article
+        article.title = this.formModif.title;
+        article.desc = this.formModif.desc;
+        article.imgPath = this.formModif.imgPath;
+        this.articleEnModificationId = null; // Ferme le formulaire
+      },
+      error: (err) => {
+        console.error('Erreur lors de la modification :', err);
+      }
+    });
+  }
+
+
 
 }
 
