@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, RouterModule} from '@angular/router';
-import {ArticleService} from '../../services/articles-service';
+import ArticleService from '../../services/articles-service';
 import {HttpClientModule} from '@angular/common/http';
 
 @Component({

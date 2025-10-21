@@ -1,1 +1,64 @@
-<h1>Bienvenue à la page d'inscription</h1>
+<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+  <div class="uk-width-1-1">
+    <div class="uk-container">
+      <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+        <div class="uk-width-1-1@m">
+          <h1 class="uk-card-title uk-text-center">Inscription page</h1>
+          <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+            <h3 class="uk-card-title uk-text-center">Welcome ! wanna get an account ?</h3>
+            <form (ngSubmit)="ajouterUtilisateur()">
+              <div class="uk-margin">
+                <div class="uk-inline uk-width-1-1">
+                  <span class="uk-form-icon" uk-icon="icon: mail"></span>
+
+
+                  <!--bouton email-->
+                  <input class="uk-input uk-form-large" type="email" [(ngModel)]="formAjoutUser.email"name="email" placeholder="Email" required >
+
+
+                </div>
+              </div>
+              <div class="uk-margin">
+                <div class="uk-inline uk-width-1-1">
+
+
+                  <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                  <!--bouton password-->
+                  <input class="uk-input uk-form-large" type="password" [(ngModel)]="formAjoutUser.password" name="password" placeholder="Mot de passe" required>
+                </div>
+                <div class="uk-margin">
+                  <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                  <input class="uk-input uk-form-large" type="passwordConfirm" [(ngModel)]="formAjoutUser.passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" required>
+
+                </div>
+              </div>
+                <div class="uk-margin">
+                  <div class="uk-inline uk-width-1-1">
+
+                  <input class="uk-input uk-form-large" type="pseudo" [(ngModel)]="formAjoutUser.pseudo" name="pseudo" placeholder="Pseudonyme" required>
+                  <input class="uk-input uk-form-large" type="citycode" [(ngModel)]="formAjoutUser.cityCode" name="citycode" placeholder="Code Postal (ex : 44000)" required>
+                  <input class="uk-input uk-form-large" type="city" [(ngModel)]="formAjoutUser.city" name="city" placeholder="Ville (ex : Nantes)" required>
+                  <input class="uk-input uk-form-large" type="phone" [(ngModel)]="formAjoutUser.phone" name="phone" placeholder="Numéro de téléphone (ex : 0600000000)" required>
+
+                  </div>
+                </div>
+
+              <div class="uk-margin">
+
+
+                <!--bouton login-->
+                <button type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1">Sign up</button>
+
+                <p>{{ message }}</p>
+              </div>
+              <div class="uk-text-small uk-text-center">
+                Already registred ? <a href="connexion">Connexion page</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

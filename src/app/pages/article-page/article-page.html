@@ -1,20 +1,47 @@
 <div class="uk-container">
+  <div *ngIf="message" class="uk-alert uk-alert-success">{{ message }}</div>
   <h2>Les articles</h2>
-  <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-medium-bottom" (click)="onClickCallApi()">
-    Appel API
+
+<!-- bouton qui affiche le formulaire d'ajout d'article-->
+  <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-medium-bottom" (click)="formVisible = !formVisible">
+    {{ formVisible ? 'Exit' : 'Ajouter un article ?' }}
   </button>
-  <form class="uk-button uk-button-primary uk-width-1-1 uk-margin-medium-bottom">
-  Ajouter un article
+
+<!-- formulaire d'ajout d'article-->
+  <form *ngIf="formVisible" (ngSubmit)="ajouterArticle()" #formAjout="ngForm">
+    <label for="title">Titre :</label>
+    <input class="uk-width-1-1" type="text" id="title" name="title" [(ngModel)]="formAjoutArticle.title" required />
+    <br>
+    <label for="desc">Description :</label>
+    <textarea class="uk-width-1-1" id="desc" name="desc" [(ngModel)]="formAjoutArticle.desc" required></textarea>
+    <br>
+    <label for="author">Auteur :</label>
+    <input class="uk-width-1-1 uk-margin-medium-bottom" type="text" id="author" name="author" [(ngModel)]="formAjoutArticle.author" required />
+    <br>
+    <button class="uk-button uk-margin-medium-bottom sdv-article-card" type="submit" [disabled]="formAjout.invalid">Ajouter</button>
   </form>
 
 
 
-  <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+<!-- bouton pour appeler l'API-->
+  <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-medium-bottom" (click)="onClickCallApi()">
+    Appel API
+  </button>
+
+
+
+
+
+
+
+<!-- Affichage des articles-->
+  <div class="uk-child-width-1-2@s uk-grid-match uk-margin-medium-bottom" uk-grid>
+
     <!-- boucle for pour creer les articles -->
     @for (article of articles; track article) {
-      <div>
+      <div >
         <div class="uk-card uk-card-secondary uk-card-hover uk-card-body sdv-article-card"
-           [ngStyle]="{ 'background-image': 'url(' + article.imgPath + ')'
+           [ngStyle]="{ 'background-image': 'url(' + (article.imgPath ? article.imgPath : 'https://www.piggypet.it/wp-content/uploads/2023/08/Progetto-senza-titolo-2023-08-01T164036.734-870x563.jpg') + ')'
            , 'background-size' : 'cover', 'background-position': 'center' }">
 
 
@@ -27,23 +54,11 @@
 
 
           <!-- Lien vers la page de détail -->
-          <button [routerLink]="['/article', article.id]">Voir l'article</button>
+          <button [routerLink]="['/article', article.id]">l'article</button>
 
           <br>
-
-          <!-- Bouton modif -->
-          <button (click)="ouvrirFormulaireModification(article)">Modifier</button>
-
-          <!-- Formulaire de modification -->
-          <div *ngIf="articleEnModificationId === article.id" class="uk-margin-top">
-            <input type="text" [(ngModel)]="formModif.title" placeholder="Nouveau titre">
-            <input type="text" [(ngModel)]="formModif.desc" placeholder="Nouvelle description">
-            <input type="file" [(ngModel)]="formModif.desc" placeholder="Nouvelle image">
-
-            <button (click)="validerModification(article)">Valider</button>
-            <button (click)="articleEnModificationId = null">Annuler</button>
-          </div>
-
+          <!-- Lien vers la page de modification de l'article-->
+          <button [routerLink]="['/modify', article.id]">Modifier</button>
           <!-- Bouton de suppr -->
           <button (click)="supprimerArticle(article.id)">Supp</button>
 

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {NgIf, NgStyle} from '@angular/common';
-import {ArticleService} from '../../services/articles-service';
+import ArticleService from '../../services/articles-service';
 import {RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-article-page',
@@ -15,9 +16,10 @@ import {FormsModule} from '@angular/forms';
 export class ArticlePage {
 
   public articles: any[] = [];
-
+  message: string = ''
   constructor(private articleService: ArticleService) {
   }
+
 
 
   onClickCallApi() {
@@ -49,37 +51,43 @@ export class ArticlePage {
     })
   }
 
-
-
-  articleEnModificationId: number | null = null;
-  formModif = { title: '', desc: '', imgPath: '' };
-
-  ouvrirFormulaireModification(article: any) {
-    this.articleEnModificationId = article.id;
-    this.formModif = {
-      title: article.title,
-      desc: article.desc,
-      imgPath: article.imgPath
-    };
+formVisible = false;
+  affichierFormulaire(){
+    this.formVisible = true;
   }
 
-  validerModification(article: any) {
-    this.articleService.modifierArticle(article.id, this.formModif).subscribe({
-      next: () => {
-        // Met à jour localement les données de l’article
-        article.title = this.formModif.title;
-        article.desc = this.formModif.desc;
-        article.imgPath = this.formModif.imgPath;
-        this.articleEnModificationId = null; // Ferme le formulaire
+
+
+formAjoutArticle = {
+    title:'',
+    desc:'',
+    author:'',
+};
+
+  ajouterArticle() {
+    if (!this.formAjoutArticle.title || !this.formAjoutArticle.desc) {
+      console.warn("Le titre et la description sont obligatoires");
+      this.message = "Le titre et la description sont obligatoires"
+      return;
+    }
+
+
+    this.articleService.ajouterArticle(this.formAjoutArticle).subscribe({
+      next: (nouvelArticle) => {
+        console.log("Article ajouté :", nouvelArticle);
+        this.articles.push(nouvelArticle); // mise à jour de la liste locale
+        this.message = `Article ${this.formAjoutArticle.title} ajouté avec succès`;
+        // reset du formulaire
+        this.formAjoutArticle = { title: '', desc: '', author: '' };
       },
       error: (err) => {
-        console.error('Erreur lors de la modification :', err);
+        console.error("Erreur lors de l'ajout de l'article :", err);
+        this.message = "Erreur lors de l'ajout";
       }
     });
+
   }
-
-
-
+  protected readonly indexedDB = indexedDB;
 }
 
 

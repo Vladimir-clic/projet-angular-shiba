@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Article} from '../pages/modify-article/article-model';
 
 @Injectable({providedIn: 'any'})
 
 
-export class ArticleService {
+class ArticleService {
 
   constructor(private http: HttpClient) { }
 
@@ -28,10 +29,24 @@ export class ArticleService {
   }
 
 
-  modifierArticle(id: number, data: any): Observable<any> {
-    return this.http.patch(`http://localhost:3000/articles/${id}`, data);
+
+  ajouterArticle(articleFromData: { title: string; desc: string; author: string }): Observable<any> {
+    return this.http.post<any>("http://localhost:3000/articles/save", articleFromData);
+}
+
+// ajouter un utilisateur dans la base de donnée
+  ajouterUtilisateur(userFromData: { email: string, password: string, pseudo: string, cityCode: string, city: string, phone: string,}): Observable<any> {
+    return this.http.post<any>("http://localhost:3000/signup", userFromData);
   }
 
+  getArticle(id:string| number): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/articles/${id}`);
+  }
 
+  modifyArticle(article: Article): Observable<any> {
+    return this.http.put<any>(`http://localhost:3000/articles/${article.id}`, article);
+  }
 }
+
+export default ArticleService
 
