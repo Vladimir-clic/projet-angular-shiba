@@ -5,7 +5,7 @@ import {ArticlePage} from './pages/article-page/article-page';
 import {ArticleDetail} from './pages/article-detail/article-detail';
 import {ConnexionPage} from './pages/connexion-page/connexion-page';
 import {ModifyArticlePage} from './pages/modify-article/modify-article';
-
+import {OubliPage} from './pages/oubli-page/oubli-page';
 
 
 export const routes: Routes = [
@@ -14,6 +14,7 @@ export const routes: Routes = [
   {path : 'article/:id', component : ArticleDetail},
   {path : 'connexion', component : ConnexionPage},
   {path : 'modify/:id', component : ModifyArticlePage},
+  {path : 'motdepasseoublie', component : OubliPage},
 ];
 
 @NgModule({

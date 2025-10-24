@@ -39,6 +39,11 @@ class ArticleService {
     return this.http.post<any>("http://localhost:3000/signup", userFromData);
   }
 
+// reset le mot de passe
+  resetPassword (email: string) : Observable<any> {
+    return this.http.post<any>("http://localhost:3000/reset-password", {email});
+  }
+
   getArticle(id:string| number): Observable<any> {
     return this.http.get<any>(`http://localhost:3000/articles/${id}`);
   }

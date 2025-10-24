@@ -3,28 +3,18 @@
     <div class="uk-container">
       <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
         <div class="uk-width-1-1@m">
-          <h1 class="uk-card-title uk-text-center">Connexion page</h1>
+          <h1 class="uk-text-center">Mot de passe oublié ?</h1>
+          <h3>Entrez votre adresse mail pour en générer un nouveau</h3>
           <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
             <h3 class="uk-card-title uk-text-center">Welcome!</h3>
-            <form (ngSubmit)="onLogin()">
+            <form (ngSubmit)="getPassword()">
               <div class="uk-margin">
                 <div class="uk-inline uk-width-1-1">
                   <span class="uk-form-icon" uk-icon="icon: mail"></span>
 
 
                   <!--bouton email-->
-                  <input class="uk-input uk-form-large" type="email" [(ngModel)]="email" name="email" placeholder="Email" required >
-
-
-                </div>
-              </div>
-              <div class="uk-margin">
-                <div class="uk-inline uk-width-1-1">
-                  <span class="uk-form-icon" uk-icon="icon: lock"></span>
-
-
-                  <!--bouton password-->
-                  <input class="uk-input uk-form-large" type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
+                  <input class="uk-input uk-form-large" type="email" [(ngModel)]= "email" name="email" placeholder="Email" required >
 
 
                 </div>
@@ -39,8 +29,6 @@
               </div>
               <div class="uk-text-small uk-text-center">
                 Not registered? <a href="inscription">Create an account</a>
-                <br>
-                Forgot password ? <a href="motdepasseoublie">Let's reset it</a>
               </div>
             </form>
           </div>
@@ -49,3 +37,4 @@
     </div>
   </div>
 </div>
+
