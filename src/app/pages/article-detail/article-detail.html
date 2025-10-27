@@ -1,1 +1,14 @@
-<h1>Détail de l'article {{ articleId }}</h1>
+<h1>Cette page ne fonctionne pas</h1>
+
+<div *ngIf="article; else loading">
+  <h2>{{ article.title }}</h2>
+  <p>{{ article.desc }}</p>
+  <p><strong>Auteur :</strong> {{ article.author }}</p>
+  <img *ngIf="article.imgPath" [src]="article.imgPath" alt="{{ article.title }}">
+</div>
+
+<ng-template #loading>
+  <p>Chargement de l’article...</p>
+</ng-template>
+
+<button (click)="onClickCallApi()">Recharger</button>

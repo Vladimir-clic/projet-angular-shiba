@@ -1,5 +1,5 @@
 <div class="uk-container uk-margin-top">
-
+  <div *ngIf="message" class="uk-alert uk-alert-success">{{ message }}</div>
   <h2 class="uk-heading-line"><span>Modifier l'article {{article.title}}</span></h2>
 
   <form (ngSubmit)="onClickModifyArticle()" #articleForm="ngForm" class="uk-form-stacked uk-width-1-2@m uk-margin-auto">
@@ -8,6 +8,13 @@
       <label class="uk-form-label" for="title">Titre</label>
       <div class="uk-form-controls">
         <input class="uk-input" id="title" name="title" [(ngModel)]="article.title" required>
+      </div>
+    </div>
+
+    <div class="uk-margin">
+      <label class="uk-form-label" for="title">Identifiant</label>
+      <div class="uk-form-controls">
+        {{article.id}}
       </div>
     </div>
 

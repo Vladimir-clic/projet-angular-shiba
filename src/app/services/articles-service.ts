@@ -44,12 +44,14 @@ class ArticleService {
     return this.http.post<any>("http://localhost:3000/reset-password", {email});
   }
 
-  getArticle(id:string| number): Observable<any> {
-    return this.http.get<any>(`http://localhost:3000/articles/${id}`);
+  getArticleById(id: string): Observable<Article> {
+    return this.http.get<Article>(`http://localhost:3000/articles/${id}`);
   }
+  getArticleid(id: string | null): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/articles/${id}`); }
 
   modifyArticle(article: Article): Observable<any> {
-    return this.http.put<any>(`http://localhost:3000/articles/${article.id}`, article);
+    return this.http.post<any>(`http://localhost:3000/articles/save`, article);
   }
 }
 

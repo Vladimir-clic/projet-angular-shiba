@@ -18,11 +18,14 @@ export class ModifyArticlePage {
 
 // création d'un article vide auquel on donnera les valeurs d'un article existant
   public article: Article = {
+    id : 0,
     title: '',
     desc: '',
     author: '',
     imgPath: ''
   };
+
+  message: string = ''
 
   constructor(
     private articleService: ArticleService, // Importer le service avec les fonction d'appel d'api
@@ -33,19 +36,21 @@ export class ModifyArticlePage {
   ngOnInit(): void {
     const articleId = this.activatedRoute.snapshot.paramMap.get('id'); // récupère l'id présent dans l'url
     if (articleId) { // si l'id existe alors on récupère ses valeurs qu'on place dans l'article créer précédement
-      this.articleService.getArticle(articleId).subscribe({
+      this.articleService.getArticleid(articleId).subscribe({
         next: (data: { code: number; data: any; }) => {
           console.log(data);
           if (data.code == 200) {
             this.article = data.data; // on place les valeurs
           } else {
             alert('Article introuvable');
+            this.message = 'Article introuvable';
             this.router.navigate(['/list']); // ** cette commande redirige sur /list
           }
         },
         error: (err: any) => {
           console.error(err);
           alert('Erreur lors de la récupération de l’article');
+          this.message = 'Erreur lors de la récupération de l article {articleId}';
           this.router.navigate(['/article']);
         }
       });
